@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "558360565772",
+    "firebase_url": "https://testfire-miag5.firebaseio.com",
+    "project_id": "testfire-miag5",
+    "storage_bucket": "testfire-miag5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:558360565772:android:69bc4f05cb7239db",
+        "android_client_info": {
+          "package_name": "com.map.develop.rutasaltillov2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "558360565772-mdc03b2clba53592sd996fn4p7i3hhjs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.map.develop.rutasaltillov2",
+            "certificate_hash": "3050f974ee917c7741b8d1e916ea52c4c95079cb"
+          }
+        },
+        {
+          "client_id": "558360565772-s88c0775m70k8siu4f9g6ih0ncdslj2m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHBLORhjCdi5OAqUCf808Fa_LiAB4gCmY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "558360565772-s88c0775m70k8siu4f9g6ih0ncdslj2m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Rutas Saltillo</string>
+    <string name="bienvenido">Bienvenido a \nRutas Saltillo</string>
+    <string name="welcomeLogin">Rutas Saltillo</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string-array name="region_array">
+        <item>Región Metropolitana</item>
+        <item>Región de Aríca y Parinacota</item>
+        <item>Región de Tarapacá</item>
+        <item>Región de Antofagasta</item>
+        <item>Región de Atacama</item>
+        <item>Región de Coquimbo</item>
+        <item>Región de Valparaíso</item>
+        <item>Región de O\'Higgins</item>
+        <item>Región de Maule</item>
+        <item>Región del Biobío</item>
+        <item>Región de la Araucanía</item>
+        <item>Región de los Ríos</item>
+        <item>Región de los Lagos</item>
+        <item>Región de Aysén</item>
+        <item>Región de Magallanes y Antártica</item>
+    </string-array>
+</resources>
