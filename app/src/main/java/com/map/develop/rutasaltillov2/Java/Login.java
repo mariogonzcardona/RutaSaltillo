@@ -1,11 +1,13 @@
 package com.map.develop.rutasaltillov2.Java;
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -31,6 +33,20 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.map.develop.rutasaltillov2.Kotlin.LoginActivity;
 import com.map.develop.rutasaltillov2.R;
+
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+import static java.sql.DriverManager.println;
 
 
 /**
@@ -101,10 +117,12 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                     //goMainActivity();
                     hideUserLogin();
                     setUserData(user);
+                    Toast.makeText(getApplicationContext(),"No se pudo iniciar sesión",Toast.LENGTH_LONG).show();
                     showUserData();
                 }
                 else
                 {
+
                     showUserLogin();
                     hideUserData();
                 }
@@ -121,7 +139,24 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     }
 
     private void setUserData(FirebaseUser user) {
-        nameTextView.setText(user.getDisplayName());
+        Log.i("informacion","adios");
+
+        String params = "{email:"+user.getEmail()+",nombre:"+user.getDisplayName()+",uid:"+user.getUid()+"}";
+        try {
+            String text = post("https://busmia.herokuapp.com/login",params);
+            File path = getApplicationContext().getExternalFilesDir(null);
+            File file = new File(path, "jwt.token");
+            FileOutputStream stream = new FileOutputStream(file);
+            Log.i("informacion","adios");
+            try {
+                stream.write(text.getBytes());
+            } finally {
+                stream.close();
+            }                } catch (IOException e) {
+            Toast.makeText(getApplicationContext(),"fail",Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+        nameTextView.setText("PENDEJO");
         emailTextView.setText(user.getEmail());
         idTextView.setText(user.getUid());
         Glide.with(this).load(user.getPhotoUrl()).into(photoImageView);
@@ -189,9 +224,11 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         }
     }
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount signInAccount) {
+    private void firebaseAuthWithGoogle(final GoogleSignInAccount signInAccount) {
         //Muestra un progress bar para autenticacion en firebase y oculta el boton de google
         progressBar.setVisibility(View.VISIBLE);
+        Toast.makeText(getApplicationContext(),"fail",Toast.LENGTH_SHORT).show();
+
         signInButton.setVisibility(View.GONE);
 
         AuthCredential credential= GoogleAuthProvider.getCredential(signInAccount.getIdToken(),null);
@@ -208,6 +245,25 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                 }
             }
         });
+    }
+
+    String post(String url, String json) throws IOException {
+        final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = RequestBody.create(JSON, json);
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+        Response response = client.newCall(request).execute();
+        Context context = getApplicationContext();
+        CharSequence texto = response.body().string();
+        int duration = Toast.LENGTH_LONG;
+
+        Toast toast = Toast.makeText(context, texto, duration);
+        toast.show();
+
+        return response.body().string();
     }
     //Seccion de Botones Log Out y Revoke
     public void logOut(View view)
