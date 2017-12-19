@@ -69,10 +69,10 @@ public class jsonParseCamiones extends AsyncTask<Void,Void,Void> {
 
                 JSONObject jaData=new JSONObject("camiones");
                 listaCamiones.add(jaData.get("id"));
-                 System.out.println(listaCamiones.get(i));
+                System.out.println(listaCamiones.get(i));
                 setListaRutas(listaCamiones);
 
-               listaCamiones.add(joCam.get("id"));
+                listaCamiones.add(joCam.get("id"));
                 System.out.println(listaCamiones.get(i));
                 setListaCamiones(listaCamiones);
 

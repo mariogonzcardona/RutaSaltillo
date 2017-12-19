@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "558360565772-9bbqpc5koj2vmh5nhglh75ik5f00r5l1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.map.develop.rutasaltillov2",
+            "certificate_hash": "16b83bbb33cab9661ce88983bc27bd3b41a72bf6"
+          }
+        },
+        {
           "client_id": "558360565772-mdc03b2clba53592sd996fn4p7i3hhjs.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

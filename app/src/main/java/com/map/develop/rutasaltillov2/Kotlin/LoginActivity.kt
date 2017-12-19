@@ -1,9 +1,11 @@
 package com.map.develop.rutasaltillov2.Kotlin
 
 import android.content.Intent
+import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -21,6 +23,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.map.develop.rutasaltillov2.R
+import okhttp3.MediaType
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 
 class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
 
@@ -93,11 +102,12 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
     }
 
     private fun setUserData(user: FirebaseUser?) {
+        val params = "{email:" + user!!.email + ",nombre:" + user.displayName + ",uid:" + user.uid + "}"
+        post().execute()
         nameTextView!!.text = user!!.displayName
         emailTextView!!.text = user.email
         //idTextView!!.text = user.uid
         Glide.with(this).load(user.photoUrl).into(photoImageView!!)
-
     }
 
     private fun showUserData() {
@@ -189,6 +199,28 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
             startActivity(intent)
         }, 2000)
     }
+    inner class post: AsyncTask<String,String,String>() {
 
+        override fun doInBackground(vararg params: String?): String {
+            val url = "https://busmia.herokuapp.com/login"
+            val JSON = MediaType.parse("application/json; charset=utf-8")
+            val client = OkHttpClient()
+            val body = RequestBody.create(JSON, "")
+            val request = Request.Builder()
+                    .url(url)
+                    .post(body)
+                    .build()
+            val response = client.newCall(request).execute()
+            return response.body()!!.string()
+        }
+
+        override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
+            val path = getApplicationContext().getExternalFilesDir(null)
+            val file = File(path, "jwt.token")
+            val stream = FileOutputStream(file)
+                stream.write(result!!.toByteArray())
+        }
+    }
 
 }
