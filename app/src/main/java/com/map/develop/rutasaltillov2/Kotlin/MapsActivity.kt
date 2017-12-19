@@ -6,6 +6,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import android.Manifest
+import android.app.Application
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.pm.PackageManager
@@ -248,7 +249,7 @@ class MapsActivity :AppCompatActivity(), OnMapReadyCallback, DirectionFinderList
     fun llenarACT()
     {
         val process = jsonParseRutas()
-        process.execute()
+        process.execute(applicationContext)
 
         textViewCompleteText = findViewById(R.id.autocomplete_rutas)
         val rutas = getListaRutas()
